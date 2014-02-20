@@ -92,6 +92,13 @@ class DigitalOcean {
 
     }
 
+/**
+ * regions
+ */
+    public function regions() {
+            return $this->handleRequest($this->endpoint.'regions');
+    }
+
 
 
 }
