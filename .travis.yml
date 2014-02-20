@@ -26,14 +26,9 @@ matrix:
         - FOC_VALIDATE=1
 
 before_script:
-    - git clone -b master https://github.com/timstermatic/cakephp-digitalocean.git --depth 1 ../travis
-    - ../travis/before_script.sh
-
-script:
-  - ../travis/script.sh
-
-after_success:
-  - ../travis/after_success.sh
-
+    - git clone git://github.com/cakephp/cakephp.git --branch $CAKE_REF --depth 1 ../cakephp
+    - cp -R ../cakephp-digitalocean ../cakephp/app/Plugin/DigitalOcean
+    - echo "CakePlugin::loadAll();" >> ../cakephp/app/Config/bootstrap.php
+  
 notifications:
   email: false
