@@ -73,8 +73,7 @@ A full list of available actions is here (https://developers.digitalocean.com/)
 
 
 
-
-
+[![Build Status](https://travis-ci.org/timstermatic/cakephp-digitalocean.png?branch=master)](https://travis-ci.org/timstermatic/cakephp-digitalocean)
 
 
 
