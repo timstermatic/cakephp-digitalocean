@@ -26,7 +26,7 @@ git submodule update
 
 ### git clone
 
-In your `Plugin` directory type:
+In your `app` directory type:
 
 ```shell
 git clone -b master https://github.com/timstermatic/cakephp-digitalocean Plugin/DigitalOcean
@@ -73,8 +73,7 @@ A full list of available actions is here (https://developers.digitalocean.com/)
 
 
 
-
-
+[![Build Status](https://travis-ci.org/timstermatic/cakephp-digitalocean.png?branch=master)](https://travis-ci.org/timstermatic/cakephp-digitalocean)
 
 
 
