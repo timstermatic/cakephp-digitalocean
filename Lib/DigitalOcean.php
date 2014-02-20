@@ -81,7 +81,6 @@ class DigitalOcean {
  * droplets
  */
     public function droplets($id=null, $action=null) {
-        
         if(!empty($id) && empty($action)) {
             return $this->handleRequest($this->endpoint.'droplets/' . $id);
         } elseif(!empty($id) && !empty($action)) {
@@ -89,7 +88,6 @@ class DigitalOcean {
         } else {
             return $this->handleRequest($this->endpoint.'droplets');
         }
-
     }
 
 /**
@@ -106,4 +104,16 @@ class DigitalOcean {
             return $this->handleRequest($this->endpoint.'sizes');
     }
 
+/**
+ * images
+ */
+    public function images($id=null, $action=null) {
+        if(!empty($id) && empty($action)) {
+            return $this->handleRequest($this->endpoint.'images/' . $id);
+        } elseif(!empty($id) && !empty($action)) {
+            return $this->handleRequest($this->endpoint.'images/' . $id . '/' . $action);
+        } else {
+            return $this->handleRequest($this->endpoint.'images');
+        }
+    }
 }
