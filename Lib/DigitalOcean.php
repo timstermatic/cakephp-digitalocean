@@ -93,12 +93,17 @@ class DigitalOcean {
     }
 
 /**
- * regions
+ * droplet regions
  */
     public function regions() {
             return $this->handleRequest($this->endpoint.'regions');
     }
 
-
+/**
+ * droplet sizes
+ */
+    public function sizes() {
+            return $this->handleRequest($this->endpoint.'sizes');
+    }
 
 }
