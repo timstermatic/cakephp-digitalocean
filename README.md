@@ -53,24 +53,60 @@ Then initialize it:
 
 ## Available calls:
 
-!! creating droplets will be supported soon !!
+### droplets
 
-### droplets($id=null, $action=null)
+##### Create a new droplet:
 
-List your available droplets.
+    $droplet = array(
+        'name' => 'example.com',
+        'image_id'=>1601,
+        'region_id' => 2,
+        'size_id'=>66
+    );
 
-`$do->droplets()`
+    $do->droplets('new',null,$droplet)
 
-Pass with an id of a droplet to retrieve details for that droplet:
+
+
+
+
+
+##### Get details for a specific droplet:
 
 `$do->droplets(12345)`
 
-Pass with an id and action to perform the requested action on that droplet
+##### Perform an action on a droplet:
 
-`$do->droplets(12345, 'reboot')`
+Pass with an id and action to perform the requested action on that droplet. You can pass a 3rd argument which is an array of $params if they are required by the api call.
 
 A full list of available actions is here (https://developers.digitalocean.com/)
 
+`$do->droplets(12345, 'reboot')`
+
+
+### regions
+
+##### Fetch a list of available regions:
+
+`$do->regions()`
+
+### images
+
+##### List your available images:
+
+`$do->images()`
+
+##### Get details for a specific image:
+
+`$do->images(12345)`
+
+##### Perform an action on an image:
+
+Pass with an id and action to perform the requested action on that imaget. You can pass a 3rd argument which is an array of $params if they are required by the api call.
+
+A full list of available actions is here (https://developers.digitalocean.com/)
+
+`$do->images(12345, 'destroy')`
 
 
 [![Build Status](https://travis-ci.org/timstermatic/cakephp-digitalocean.png?branch=master)](https://travis-ci.org/timstermatic/cakephp-digitalocean)

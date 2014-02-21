@@ -59,10 +59,16 @@ class DigitalOcean {
 *
 * @return void
 **/
-    public function handleRequest($request) {
+    public function handleRequest($request, $params=null) {
 
-        $request.='/?' . 'client_id=' . $this->clientId;
-        $request.='&' . 'api_key=' . $this->apiKey;
+        $request .= '/?' . 'client_id=' . $this->clientId;
+        $request .= '&' . 'api_key=' . $this->apiKey;
+
+        if(!empty($params)) {
+            foreach($params as $k=>$v) {
+                $request .= '&' . $k . '=' . $v;
+            }
+        }
 
         if(!$this->HttpSocket) {
             $this->HttpSocket = new HttpSocket(array('ssl_verify_host'=>false));
@@ -80,14 +86,27 @@ class DigitalOcean {
 /**
  * droplets
  */
-    public function droplets($id=null, $action=null) {
+    public function droplets($id=null, $action=null, $params=array()) {
+
+        
         if(!empty($id) && empty($action)) {
-            return $this->handleRequest($this->endpoint.'droplets/' . $id);
+            // check if this is a new droplet request
+            if($id == 'new') {
+                // create a new droplet
+                $request = $this->endpoint.'droplets/new';
+            } else {
+                // request a specific droplet
+                $request = $this->endpoint.'droplets/' . $id;
+            }
         } elseif(!empty($id) && !empty($action)) {
-            return $this->handleRequest($this->endpoint.'droplets/' . $id . '/' . $action);
+            // carry out an operation on a specific droplet
+            $request = $this->endpoint.'droplets/' . $id . '/' . $action;
         } else {
-            return $this->handleRequest($this->endpoint.'droplets');
+            // list all my droplets
+            $request = $this->endpoint.'droplets';
         }
+        return $this->handleRequest($request, $params);
+
     }
 
 /**
@@ -107,13 +126,24 @@ class DigitalOcean {
 /**
  * images
  */
-    public function images($id=null, $action=null) {
+    public function images($id=null, $action=null, $params=array()) {
         if(!empty($id) && empty($action)) {
-            return $this->handleRequest($this->endpoint.'images/' . $id);
+            // fetch details of a specific image
+            $request = $this->endpoint.'images/' . $id;
         } elseif(!empty($id) && !empty($action)) {
-            return $this->handleRequest($this->endpoint.'images/' . $id . '/' . $action);
+            // perfom an action on an image
+            $request = $this->endpoint.'images/' . $id . '/' . $action;
         } else {
-            return $this->handleRequest($this->endpoint.'images');
+            // list all available images
+            $request = $this->endpoint.'images';
         }
+        return $this->handleRequest($request, $params);
+    }
+
+/**
+ * events
+ */
+    public function events($id) {
+            return $this->handleRequest($this->endpoint.'events/'.$id);
     }
 }
