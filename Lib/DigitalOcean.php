@@ -61,6 +61,7 @@ class DigitalOcean {
 **/
     public function handleRequest($request, $params=null) {
 
+        $request = $this->endpoint. $request;
         $request .= '/?' . 'client_id=' . $this->clientId;
         $request .= '&' . 'api_key=' . $this->apiKey;
 
@@ -91,17 +92,17 @@ class DigitalOcean {
             // check if this is a new droplet request
             if($id == 'new') {
                 // create a new droplet
-                $request = $this->endpoint.'droplets/new';
+                $request = 'droplets/new';
             } else {
                 // request a specific droplet
-                $request = $this->endpoint.'droplets/' . $id;
+                $request = 'droplets/' . $id;
             }
         } elseif(!empty($id) && !empty($action)) {
             // carry out an operation on a specific droplet
-            $request = $this->endpoint.'droplets/' . $id . '/' . $action;
+            $request = 'droplets/' . $id . '/' . $action;
         } else {
             // list all my droplets
-            $request = $this->endpoint.'droplets';
+            $request = 'droplets';
         }
         return $this->handleRequest($request, $params);
     }
@@ -110,14 +111,14 @@ class DigitalOcean {
  * droplet regions
  */
     public function regions() {
-            return $this->handleRequest($this->endpoint.'regions');
+            return $this->handleRequest('regions');
     }
 
 /**
  * droplet sizes
  */
     public function sizes() {
-            return $this->handleRequest($this->endpoint.'sizes');
+            return $this->handleRequest('sizes');
     }
 
 /**
@@ -126,13 +127,13 @@ class DigitalOcean {
     public function images($id=null, $action=null, $params=array()) {
         if(!empty($id) && empty($action)) {
             // fetch details of a specific image
-            $request = $this->endpoint.'images/' . $id;
+            $request = 'images/' . $id;
         } elseif(!empty($id) && !empty($action)) {
             // perfom an action on an image
-            $request = $this->endpoint.'images/' . $id . '/' . $action;
+            $request = 'images/' . $id . '/' . $action;
         } else {
             // list all available images
-            $request = $this->endpoint.'images';
+            $request = 'images';
         }
         return $this->handleRequest($request, $params);
     }
@@ -142,28 +143,73 @@ class DigitalOcean {
  */
     public function sshKeys($id=null, $action=null, $params=array()) {
         if(!empty($id) && empty($action)) {
-            // check if this is a new droplet ssh keys
+            // check if this is a new ssh key
             if($id == 'new') {
                 // create a new droplet
-                $request = $this->endpoint.'ssh_keys/new';
+                $request = 'ssh_keys/new';
             } else {
                 // request a specific droplet
-                $request = $this->endpoint.'ssh_keys/' . $id;
+                $request = 'ssh_keys/' . $id;
             }
         } elseif(!empty($id) && !empty($action)) {
             // carry out an operation on a specific ssh keys
-            $request = $this->endpoint.'ssh_keys/' . $id . '/' . $action;
+            $request = 'ssh_keys/' . $id . '/' . $action;
         } else {
             // list all my ssh keys
-            $request = $this->endpoint.'ssh_keys';
+            $request = 'ssh_keys';
         }
         return $this->handleRequest($request, $params);
     }
 
 /**
+ * domains
+ */
+    public function domains($id=null, $action=null, $params=array()) {
+        if(!empty($id) && empty($action)) {
+            // check if this is a new domain
+            if($id == 'new') {
+                // create a new domain
+                $request = 'domains/new';
+            } else {
+                // request a specific domain
+                $request = 'domains/' . $id;
+            }
+        } elseif(!empty($id) && !empty($action)) {
+            // carry out an operation on a  specific domain
+            $request = 'domains/' . $id . '/' . $action;
+        } else {
+            // list all my domains
+            $request = 'domains';
+        }
+        return $this->handleRequest($request, $params);
+    }
+
+/**
+ * domain records
+ */
+    public function domainRecords($domain_id=null, $id=null, $action=null, $params=array()) {
+        if(!empty($id) && empty($action)) {
+            // check if this is a new domain record
+            if($id == 'new') {
+                // create a new domain record
+                $request = 'domains/' . $domain_id . '/records/new';
+            } else {
+                // request a specific domain record
+                $request = 'domains/' . $domain_id . '/records/' .  $id;
+            }
+        } elseif(!empty($id) && !empty($action)) {
+            // carry out an operation on a  specific domain record
+            $request = 'domains/' .$domain_id . '/records/' . $id . '/' . $action;
+        } else {
+            // list all my domain records
+            $request = 'domains/' . $domain_id . '/records';
+        }
+        return $this->handleRequest($request, $params);
+    }
+/**
  * events
  */
     public function events($id) {
-            return $this->handleRequest($this->endpoint.'events/'.$id);
+            return $this->handleRequest('events/'.$id);
     }
 }

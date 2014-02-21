@@ -108,7 +108,7 @@ A full list of available actions is here (https://developers.digitalocean.com/)
 
 `$do->images(12345, 'destroy')`
 
-### SSH Keys
+### ssh keys
 
 ##### Create a new key:
 
@@ -134,6 +134,65 @@ Pass with an id and action to perform the requested action on that ssh key. You 
 A full list of available actions is here (https://developers.digitalocean.com/)
 
 `$do->sshKeys(12345, 'destroy')`
+
+### domains
+
+##### Create a new domain:
+
+    $params = array(
+        'name'=>'example.com',
+        'ip_address'=>'0.0.0.0.0'
+    );  
+    $do->domains('new', null, $params);
+
+##### Fetch a list of your domains:
+
+`$do->domains()`
+
+##### Get a specific domain:
+
+`$do->domains(12345)`
+
+##### Perform an action on an domain:
+
+Pass with an id and action to perform the requested action on that domain. You can pass a 3rd argument which is an array of $params if they are required by the api call.
+
+A full list of available actions is here (https://developers.digitalocean.com/)
+
+`$do->domains(12345, 'destroy')`
+
+
+
+### domain records
+
+The first argument must always be the `id` of a `domain`
+
+##### Create a new domain record:
+
+    $params = array(
+        'name'=>'zone.example.com',
+        'record_type'=>'CNAME',
+        'data'=>'@',
+    );
+    print_r($do->domainRecords(12345,'new',null, $params));
+    
+##### Fetch a list of your domain records:
+
+`$do->domainRecords(12345)`
+
+##### Get a specific domain record:
+
+`$do->domainRecords(12345, 54321)`
+
+##### Perform an action on an domain:
+
+Pass with an id and action to perform the requested action on that domain record. You can pass a 3rd argument which is an array of $params if they are required by the api call.
+
+A full list of available actions is here (https://developers.digitalocean.com/)
+
+`$do->domainRecords(12345,54321, 'destroy')`
+    
+
 
 
 [![Build Status](https://travis-ci.org/timstermatic/cakephp-digitalocean.png?branch=master)](https://travis-ci.org/timstermatic/cakephp-digitalocean)
