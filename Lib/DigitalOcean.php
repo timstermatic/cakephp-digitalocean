@@ -87,8 +87,6 @@ class DigitalOcean {
  * droplets
  */
     public function droplets($id=null, $action=null, $params=array()) {
-
-        
         if(!empty($id) && empty($action)) {
             // check if this is a new droplet request
             if($id == 'new') {
@@ -106,7 +104,6 @@ class DigitalOcean {
             $request = $this->endpoint.'droplets';
         }
         return $this->handleRequest($request, $params);
-
     }
 
 /**
@@ -136,6 +133,29 @@ class DigitalOcean {
         } else {
             // list all available images
             $request = $this->endpoint.'images';
+        }
+        return $this->handleRequest($request, $params);
+    }
+
+/**
+ * sshKeys
+ */
+    public function sshKeys($id=null, $action=null, $params=array()) {
+        if(!empty($id) && empty($action)) {
+            // check if this is a new droplet ssh keys
+            if($id == 'new') {
+                // create a new droplet
+                $request = $this->endpoint.'ssh_keys/new';
+            } else {
+                // request a specific droplet
+                $request = $this->endpoint.'ssh_keys/' . $id;
+            }
+        } elseif(!empty($id) && !empty($action)) {
+            // carry out an operation on a specific ssh keys
+            $request = $this->endpoint.'ssh_keys/' . $id . '/' . $action;
+        } else {
+            // list all my ssh keys
+            $request = $this->endpoint.'ssh_keys';
         }
         return $this->handleRequest($request, $params);
     }

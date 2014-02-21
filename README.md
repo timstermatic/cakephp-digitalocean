@@ -102,11 +102,38 @@ A full list of available actions is here (https://developers.digitalocean.com/)
 
 ##### Perform an action on an image:
 
-Pass with an id and action to perform the requested action on that imaget. You can pass a 3rd argument which is an array of $params if they are required by the api call.
+Pass with an id and action to perform the requested action on that image. You can pass a 3rd argument which is an array of $params if they are required by the api call.
 
 A full list of available actions is here (https://developers.digitalocean.com/)
 
 `$do->images(12345, 'destroy')`
+
+### SSH Keys
+
+##### Create a new key:
+
+    $params = array(
+        'name'=>'my key',
+        'ssh_pub_key'=>'xxxxxx'
+    );  
+    $do->sshKeys('new', null, $params);
+
+
+##### Fetch a list of your keys:
+
+`$do->sshKeys()`
+
+##### Get a specific key:
+
+`$do->sshKeys(12345)`
+
+##### Perform an action on an key:
+
+Pass with an id and action to perform the requested action on that ssh key. You can pass a 3rd argument which is an array of $params if they are required by the api call.
+
+A full list of available actions is here (https://developers.digitalocean.com/)
+
+`$do->sshKeys(12345, 'destroy')`
 
 
 [![Build Status](https://travis-ci.org/timstermatic/cakephp-digitalocean.png?branch=master)](https://travis-ci.org/timstermatic/cakephp-digitalocean)
