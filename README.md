@@ -34,7 +34,7 @@ git clone -b master https://github.com/timstermatic/cakephp-digitalocean Plugin/
 
 # Using the Plugin:
 
-Ensure you are loading it in your `APP/Config/bootstrap,php`
+Ensure you are loading it in your `APP/Config/bootstrap.php`
 
 Either by loading all plugins:
 
