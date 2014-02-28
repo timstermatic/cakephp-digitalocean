@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Cakephp-digitalocean : A CakePHP Library for interacting with the DigitalOcean API." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Cakephp-digitalocean</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/timstermatic/cakephp-digitalocean">View on GitHub</a>
+
+          <h1 id="project_title">Cakephp-digitalocean</h1>
+          <h2 id="project_tagline">A CakePHP Library for interacting with the DigitalOcean API.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/timstermatic/cakephp-digitalocean/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/timstermatic/cakephp-digitalocean/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="cakephp-digitalocean" class="anchor" href="#cakephp-digitalocean"><span class="octicon octicon-link"></span></a>CakePHP DigitalOcean</h1>
+
+<p>A CakePHP Library for interacting with the DigitalOcean API.</p>
+
+<p>Spin up and destroy servers for fun &amp; profit from your web app or the shell.</p>
+
+<h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<ul>
+<li>CakePHP 2.x</li>
+<li>A DigitalOcean account (<a href="http://www.digitalocean.com">http://www.digitalocean.com</a>).</li>
+<li>Your DigitalOcean Client ID and API Key.</li>
+</ul><h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<h3>
+<a name="git-submodule" class="anchor" href="#git-submodule"><span class="octicon octicon-link"></span></a>git submodule</h3>
+
+<p>In your app directory type:</p>
+
+<pre lang="shell"><code>git submodule add -b master https://github.com/timstermatic/cakephp-digitalocean Plugin/DigitalOcean
+git submodule init
+git submodule update
+</code></pre>
+
+<h3>
+<a name="git-clone" class="anchor" href="#git-clone"><span class="octicon octicon-link"></span></a>git clone</h3>
+
+<p>In your <code>app</code> directory type:</p>
+
+<pre lang="shell"><code>git clone -b master https://github.com/timstermatic/cakephp-digitalocean Plugin/DigitalOcean
+</code></pre>
+
+<h1>
+<a name="using-the-plugin" class="anchor" href="#using-the-plugin"><span class="octicon octicon-link"></span></a>Using the Plugin:</h1>
+
+<p>Ensure you are loading it in your <code>APP/Config/bootstrap.php</code></p>
+
+<p>Either by loading all plugins:</p>
+
+<p><code>CakePlugin::loadAll()</code></p>
+
+<p>or explicitly:</p>
+
+<p><code>CakePlugin::load('DigitalOcean')</code></p>
+
+<p>Then initialize it:</p>
+
+<p><code>App::uses('DigitalOcean', 'DigitalOcean.Lib');</code></p>
+
+<p><code>$do = new DigitalOcean('YOURCLIENTID','YOURAPIKEY');</code></p>
+
+<h2>
+<a name="available-calls" class="anchor" href="#available-calls"><span class="octicon octicon-link"></span></a>Available calls:</h2>
+
+<h3>
+<a name="droplets" class="anchor" href="#droplets"><span class="octicon octicon-link"></span></a>droplets</h3>
+
+<h5>
+<a name="create-a-new-droplet" class="anchor" href="#create-a-new-droplet"><span class="octicon octicon-link"></span></a>Create a new droplet:</h5>
+
+<pre><code>$droplet = array(
+    'name' =&gt; 'example.com',
+    'image_id'=&gt;1601,
+    'region_id' =&gt; 2,
+    'size_id'=&gt;66
+);
+
+$do-&gt;droplets('new',null,$droplet)
+</code></pre>
+
+<h5>
+<a name="get-details-for-a-specific-droplet" class="anchor" href="#get-details-for-a-specific-droplet"><span class="octicon octicon-link"></span></a>Get details for a specific droplet:</h5>
+
+<p><code>$do-&gt;droplets(12345)</code></p>
+
+<h5>
+<a name="perform-an-action-on-a-droplet" class="anchor" href="#perform-an-action-on-a-droplet"><span class="octicon octicon-link"></span></a>Perform an action on a droplet:</h5>
+
+<p>Pass with an id and action to perform the requested action on that droplet. You can pass a 3rd argument which is an array of $params if they are required by the api call.</p>
+
+<p>A full list of available actions is here (<a href="https://developers.digitalocean.com/">https://developers.digitalocean.com/</a>)</p>
+
+<p><code>$do-&gt;droplets(12345, 'reboot')</code></p>
+
+<h3>
+<a name="regions" class="anchor" href="#regions"><span class="octicon octicon-link"></span></a>regions</h3>
+
+<h5>
+<a name="fetch-a-list-of-available-regions" class="anchor" href="#fetch-a-list-of-available-regions"><span class="octicon octicon-link"></span></a>Fetch a list of available regions:</h5>
+
+<p><code>$do-&gt;regions()</code></p>
+
+<h3>
+<a name="images" class="anchor" href="#images"><span class="octicon octicon-link"></span></a>images</h3>
+
+<h5>
+<a name="list-your-available-images" class="anchor" href="#list-your-available-images"><span class="octicon octicon-link"></span></a>List your available images:</h5>
+
+<p><code>$do-&gt;images()</code></p>
+
+<h5>
+<a name="get-details-for-a-specific-image" class="anchor" href="#get-details-for-a-specific-image"><span class="octicon octicon-link"></span></a>Get details for a specific image:</h5>
+
+<p><code>$do-&gt;images(12345)</code></p>
+
+<h5>
+<a name="perform-an-action-on-an-image" class="anchor" href="#perform-an-action-on-an-image"><span class="octicon octicon-link"></span></a>Perform an action on an image:</h5>
+
+<p>Pass with an id and action to perform the requested action on that image. You can pass a 3rd argument which is an array of $params if they are required by the api call.</p>
+
+<p>A full list of available actions is here (<a href="https://developers.digitalocean.com/">https://developers.digitalocean.com/</a>)</p>
+
+<p><code>$do-&gt;images(12345, 'destroy')</code></p>
+
+<h3>
+<a name="ssh-keys" class="anchor" href="#ssh-keys"><span class="octicon octicon-link"></span></a>ssh keys</h3>
+
+<h5>
+<a name="create-a-new-key" class="anchor" href="#create-a-new-key"><span class="octicon octicon-link"></span></a>Create a new key:</h5>
+
+<pre><code>$params = array(
+    'name'=&gt;'my key',
+    'ssh_pub_key'=&gt;'xxxxxx'
+);  
+$do-&gt;sshKeys('new', null, $params);
+</code></pre>
+
+<h5>
+<a name="fetch-a-list-of-your-keys" class="anchor" href="#fetch-a-list-of-your-keys"><span class="octicon octicon-link"></span></a>Fetch a list of your keys:</h5>
+
+<p><code>$do-&gt;sshKeys()</code></p>
+
+<h5>
+<a name="get-a-specific-key" class="anchor" href="#get-a-specific-key"><span class="octicon octicon-link"></span></a>Get a specific key:</h5>
+
+<p><code>$do-&gt;sshKeys(12345)</code></p>
+
+<h5>
+<a name="perform-an-action-on-an-key" class="anchor" href="#perform-an-action-on-an-key"><span class="octicon octicon-link"></span></a>Perform an action on an key:</h5>
+
+<p>Pass with an id and action to perform the requested action on that ssh key. You can pass a 3rd argument which is an array of $params if they are required by the api call.</p>
+
+<p>A full list of available actions is here (<a href="https://developers.digitalocean.com/">https://developers.digitalocean.com/</a>)</p>
+
+<p><code>$do-&gt;sshKeys(12345, 'destroy')</code></p>
+
+<h3>
+<a name="domains" class="anchor" href="#domains"><span class="octicon octicon-link"></span></a>domains</h3>
+
+<h5>
+<a name="create-a-new-domain" class="anchor" href="#create-a-new-domain"><span class="octicon octicon-link"></span></a>Create a new domain:</h5>
+
+<pre><code>$params = array(
+    'name'=&gt;'example.com',
+    'ip_address'=&gt;'0.0.0.0.0'
+);  
+$do-&gt;domains('new', null, $params);
+</code></pre>
+
+<h5>
+<a name="fetch-a-list-of-your-domains" class="anchor" href="#fetch-a-list-of-your-domains"><span class="octicon octicon-link"></span></a>Fetch a list of your domains:</h5>
+
+<p><code>$do-&gt;domains()</code></p>
+
+<h5>
+<a name="get-a-specific-domain" class="anchor" href="#get-a-specific-domain"><span class="octicon octicon-link"></span></a>Get a specific domain:</h5>
+
+<p><code>$do-&gt;domains(12345)</code></p>
+
+<h5>
+<a name="perform-an-action-on-an-domain" class="anchor" href="#perform-an-action-on-an-domain"><span class="octicon octicon-link"></span></a>Perform an action on an domain:</h5>
+
+<p>Pass with an id and action to perform the requested action on that domain. You can pass a 3rd argument which is an array of $params if they are required by the api call.</p>
+
+<p>A full list of available actions is here (<a href="https://developers.digitalocean.com/">https://developers.digitalocean.com/</a>)</p>
+
+<p><code>$do-&gt;domains(12345, 'destroy')</code></p>
+
+<h3>
+<a name="domain-records" class="anchor" href="#domain-records"><span class="octicon octicon-link"></span></a>domain records</h3>
+
+<p>The first argument must always be the <code>id</code> of a <code>domain</code></p>
+
+<h5>
+<a name="create-a-new-domain-record" class="anchor" href="#create-a-new-domain-record"><span class="octicon octicon-link"></span></a>Create a new domain record:</h5>
+
+<pre><code>$params = array(
+    'name'=&gt;'zone.example.com',
+    'record_type'=&gt;'CNAME',
+    'data'=&gt;'@',
+);
+print_r($do-&gt;domainRecords(12345,'new',null, $params));
+</code></pre>
+
+<h5>
+<a name="fetch-a-list-of-your-domain-records" class="anchor" href="#fetch-a-list-of-your-domain-records"><span class="octicon octicon-link"></span></a>Fetch a list of your domain records:</h5>
+
+<p><code>$do-&gt;domainRecords(12345)</code></p>
+
+<h5>
+<a name="get-a-specific-domain-record" class="anchor" href="#get-a-specific-domain-record"><span class="octicon octicon-link"></span></a>Get a specific domain record:</h5>
+
+<p><code>$do-&gt;domainRecords(12345, 54321)</code></p>
+
+<h5>
+<a name="perform-an-action-on-an-domain-1" class="anchor" href="#perform-an-action-on-an-domain-1"><span class="octicon octicon-link"></span></a>Perform an action on an domain:</h5>
+
+<p>Pass with an id and action to perform the requested action on that domain record. You can pass a 3rd argument which is an array of $params if they are required by the api call.</p>
+
+<p>A full list of available actions is here (<a href="https://developers.digitalocean.com/">https://developers.digitalocean.com/</a>)</p>
+
+<p><code>$do-&gt;domainRecords(12345,54321, 'destroy')</code></p>
+
+<p><a href="https://travis-ci.org/timstermatic/cakephp-digitalocean"><img src="https://travis-ci.org/timstermatic/cakephp-digitalocean.png?branch=master" alt="Build Status"></a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Cakephp-digitalocean maintained by <a href="https://github.com/timstermatic">timstermatic</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
